@@ -84,7 +84,7 @@ function setup() {
     // Color setup
     hue = 0;
     hueIncr = 255 / 12;
-    saturation = 200;
+    saturation = 150;
     brightness = 255;
     opacity = 30;
 
@@ -93,9 +93,9 @@ function setup() {
     cX = [];
     cY = [];
     c = [];
-    radius = 250;
+    radius = (width / 3)*0.5;
     numPoints = 13;
-    cVectorSize = 200; // Controls size of the fade-out tail of the coloured circle
+    cVectorSize = 300; // Controls size of the fade-out tail of the coloured circle
     angle = 360 / numPoints;
     circleX = radius * sin(radians(angle * circleNoteIndex));
     circleY = radius * cos(radians(angle * circleNoteIndex));
@@ -145,7 +145,7 @@ function draw() {
         // sets the colour of the circle depending on the current scale and draws it
         fill(c[i]);
         // Circle vectors get gradually smaller, creating effected of them fading out
-        let circleSize = map(i, 0, cX.length - 1, 2, 60);
+        let circleSize = map(i, 0, cX.length - 1, 2, radius * 0.2);
         ellipse(cX[i], cY[i], circleSize);
     }
 
@@ -159,7 +159,7 @@ function draw() {
         } else
             fill(255);
 
-        ellipse(radius * sin(radians(angle * i)), radius * cos(radians(angle * i)), 25);
+        ellipse(radius * sin(radians(angle * i)), radius * cos(radians(angle * i)), radius/12);
     }
 
     resetMatrix();
@@ -223,4 +223,5 @@ function mousePressed() {
 // Dynamically update canvas based on window size
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
+    radius = (width / 3)*0.5;
 }
