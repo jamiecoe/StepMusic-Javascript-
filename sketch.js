@@ -74,9 +74,14 @@ function setup() {
 
     colorMode(HSB, 255);
 
+
     // Sound stuff
     envelope.setADSR(0.008, 0.2, 0.2, 0.5);
     envelope.setRange(0.6, 0);
+
+    envelope.setADSR(0.005, 0.2, 0.2, 0.5);
+    envelope.setRange(0.2, 0);
+
     osc.amp(envelope);
     osc.start();
     delay.process(osc, .999, .5);
