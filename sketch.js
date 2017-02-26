@@ -68,7 +68,7 @@ function setup() {
     createCanvas(windowWidth, windowHeight);
 
     envelope.setADSR(0.005, 0.2, 0.2, 0.5);
-    envelope.setRange(0.5, 0);
+    envelope.setRange(0.2, 0);
     osc.amp(envelope);
     osc.start();
 
