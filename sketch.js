@@ -17,10 +17,12 @@ let circleX,
 // Musical Notation variables
 let circleNoteIndex,
     scaleStep,
-    freqIndex;
+    freqIndexl;
 let currentScale = [];
 
 let clickCounter = 0;
+
+let scaleLabelArray;
 
 // Oscillator & effects setup
 const osc = new p5.SinOsc();
@@ -65,13 +67,18 @@ const scaleFrequency = [
 ];
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    let canvas = createCanvas(windowWidth, windowHeight);
+    canvas.position(0, 0);
+    // Put canvas behind normal DOM elements
+    canvas.style('z-index', '-1')
 
-    envelope.setADSR(0.005, 0.2, 0.2, 0.5);
+    colorMode(HSB, 255);
+
+    // Sound stuff
+    envelope.setADSR(0.008, 0.2, 0.2, 0.5);
     envelope.setRange(0.6, 0);
     osc.amp(envelope);
     osc.start();
-
     delay.process(osc, .999, .5);
 
     circleNoteIndex = 2;
@@ -89,13 +96,12 @@ function setup() {
     opacity = 30;
 
     // Circles setup
-    colorMode(HSB, 255);
     cX = [];
     cY = [];
     c = [];
-    radius = (width / 3)*0.5;
+    radius = (width / 3) * 0.5;
     numPoints = 13;
-    cVectorSize = 300; // Controls size of the fade-out tail of the coloured circle
+    cVectorSize = 400; // Controls size of the fade-out tail of the coloured circle
     angle = 360 / numPoints;
     circleX = radius * sin(radians(angle * circleNoteIndex));
     circleY = radius * cos(radians(angle * circleNoteIndex));
@@ -106,13 +112,25 @@ function setup() {
         c.push(color(hue, saturation, brightness, opacity));
     }
 
+    // // DOM scalelist stuff
+    // scaleLabelArray = selectAll('li');
+    //
+    // for (var i = 0, j = scaleLabelArray.length; i < j; i++) {
+    //     let scaleLabelColor = color(hue + (hueIncr * i), saturation, brightness);
+    //     scaleLabelArray[i].style("color", scaleLabelColor);
+    // }
+    //
+    // $("li").hide();
+    // let currentListId = `#${scaleLabelArray[scaleStep].id()}`;
+    // $(currentListId).fadeIn();
+
 }
 
 function draw() {
     background(0);
     noStroke();
 
-    applyMatrix();
+    //applyMatrix();
 
     translate(width / 2, height / 2);
 
@@ -159,10 +177,10 @@ function draw() {
         } else
             fill(255);
 
-        ellipse(radius * sin(radians(angle * i)), radius * cos(radians(angle * i)), radius/12);
+        ellipse(radius * sin(radians(angle * i)), radius * cos(radians(angle * i)), radius / 12);
     }
 
-    resetMatrix();
+    //resetMatrix();
 
 }
 
@@ -199,8 +217,9 @@ function mousePressed() {
         circleNoteIndex = 12;
 
     if (clickCounter > 0 && clickCounter % 10 === 0) {
+
         scaleStep++;
-        console.log('Scale changed')
+
         if (scaleStep > 11)
             scaleStep = 0;
         for (var i = 0; i < 5; i++) {
@@ -209,19 +228,30 @@ function mousePressed() {
         hue += hueIncr;
         if (hue >= 255)
             hue = 0;
+
+        // // Fade out current scale label
+        // let scaleListIndex = scaleStep;
+        //
+        // if(scaleListIndex === 0) scaleListIndex = 12;
+        //
+        // let currentListId = `#${scaleLabelArray[scaleListIndex - 1].id()}`;
+        // $(currentListId).fadeOut(500, () => {
+        //     // Fade in new scale label
+        //     if(scaleListIndex === 12) scaleListIndex = 0;
+        //     let newListId = `#${scaleLabelArray[scaleListIndex].id()}`;
+        //     $(newListId).fadeIn(500);
+        // });
+        //
+        // console.log(scaleLabelArray[scaleListIndex].id());
     }
-
-
-
 
     osc.freq(currentScale[freqIndex]);
     envelope.play();
-
     clickCounter++;
 }
 
 // Dynamically update canvas based on window size
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
-    radius = (width / 3)*0.5;
+    radius = (width / 3) * 0.5;
 }

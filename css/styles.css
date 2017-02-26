@@ -1,0 +1,26 @@
+@font-face {
+    font-family: AvenirNext;
+    src: url(../assets/AvenirNextLTW01-Medium.ttf);
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: AvenirNext;
+    user-select: none;
+}
+
+canvas {
+    vertical-align: top;
+}
+
+.headerSection {
+    color: white;
+    padding-left: 2cm;
+}
+
+.scaleSection {
+    font-size: 25px;
+    text-align: right;
+    padding-right: 20%;
+}

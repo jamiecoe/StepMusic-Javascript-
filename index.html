@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <title>StepMusic</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="libraries/p5.js" type="text/javascript"></script>
 
     <script src="libraries/p5.dom.js" type="text/javascript"></script>
@@ -10,8 +13,35 @@
 
     <script src="sketch.js" type="text/javascript"></script>
 
-    <style> body {padding: 0; margin: 0;} canvas {vertical-align: top;} </style>
-  </head>
-  <body>
-  </body>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row row-header">
+            <p style="padding:40px"></p>
+            <h1 class="headerSection" style="font-size: 50px;">Step Music JS</h1>
+            <p class="headerSection">By Jamie Coe</p>
+            <a class="headerSection" target="_blank" href="https://github.com/jamiecoe/StepMusicJS">github</a>
+            <ul class="scaleSection" style="list-style-type:none">
+              <li id="Cmin">Cmin</li>
+              <li id="Gmin">Gmin</li>
+              <li id="Dmin">Dmin</li>
+              <li id="Amin">Amin</li>
+              <li id="Emin">Emin</li>
+              <li id="Bmin">Bmin</li>
+              <li id="F#min">F&#35min</li>
+              <li id="C#min">C&#35min</li>
+              <li id="G#min">G&#35min</li>
+              <li id="Ebmin">Ebmin</li>
+              <li id="Bbmin">Bbmin</li>
+              <li id="Fmin">Fmin</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+</body>
+
 </html>
