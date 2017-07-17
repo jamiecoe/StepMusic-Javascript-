@@ -8,6 +8,7 @@ body {
     margin: 0;
     font-family: AvenirNext;
     user-select: none;
+    font-size: 2vmin;
 }
 
 canvas {
@@ -19,8 +20,8 @@ canvas {
     padding-left: 2cm;
 }
 
-.scaleSection {
+/*.scaleSection {
     font-size: 25px;
     text-align: right;
     padding-right: 20%;
-}
+}*/
