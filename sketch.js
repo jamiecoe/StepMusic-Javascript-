@@ -1,5 +1,5 @@
 // Visualiser variables
-let circleX,
+var circleX,
     circleY,
     c,
     cX,
@@ -15,21 +15,21 @@ let circleX,
     hueIncr;
 
 // Musical Notation variables
-let circleNoteIndex,
+var circleNoteIndex,
     scaleStep,
     freqIndexl;
-let currentScale = [];
+var currentScale = [];
 
-let clickCounter = 0;
+var clickCounter = 0;
 
-let scaleLabelArray;
+var scaleLabelArray;
 
 // Oscillator & effects setup
-const osc = new p5.SinOsc();
-const envelope = new p5.Env();
-const delay = new p5.Delay();
+var osc = new p5.SinOsc();
+var envelope = new p5.Env();
+var delay = new p5.Delay();
 
-const scaleFrequency = [
+var scaleFrequency = [
     [
         261.626, 311.127, 349.228, 391.995, 466.164
     ],
@@ -66,14 +66,14 @@ const scaleFrequency = [
     [233.082, 261.626, 311.127, 349.228, 415.305]
 ];
 
+
 function setup() {
-    let canvas = createCanvas(windowWidth, windowHeight);
+    var canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0, 0);
     // Put canvas behind normal DOM elements
     canvas.style('z-index', '-1')
 
     colorMode(HSB, 255);
-
 
     // Sound stuff
     envelope.setADSR(0.008, 0.2, 0.2, 0.5);
@@ -114,35 +114,23 @@ function setup() {
         c.push(color(hue, saturation, brightness, opacity));
     }
 
-    // // DOM scalelist stuff
-    // scaleLabelArray = selectAll('li');
-    //
-    // for (var i = 0, j = scaleLabelArray.length; i < j; i++) {
-    //     let scaleLabelColor = color(hue + (hueIncr * i), saturation, brightness);
-    //     scaleLabelArray[i].style("color", scaleLabelColor);
-    // }
-    //
-    // $("li").hide();
-    // let currentListId = `#${scaleLabelArray[scaleStep].id()}`;
-    // $(currentListId).fadeIn();
 
 }
 
 function draw() {
+
     background(0);
     noStroke();
-
-    //applyMatrix();
 
     translate(width / 2, height / 2);
 
     // calculate the distance between most recently triggered musical note and colour circle
-    let xDist = radius * sin(radians(angle * circleNoteIndex)) - circleX;
-    let yDist = radius * cos(radians(angle * circleNoteIndex)) - circleY;
+    var xDist = radius * sin(radians(angle * circleNoteIndex)) - circleX;
+    var yDist = radius * cos(radians(angle * circleNoteIndex)) - circleY;
 
     // creates a increment variable of 1/10th the distance
-    let xIncr = xDist / 10;
-    let yIncr = yDist / 10;
+    var xIncr = xDist / 10;
+    var yIncr = yDist / 10;
 
     // updates the position of the coloured circle so it travels to most recently triggered note
     circleX += xIncr;
@@ -165,7 +153,7 @@ function draw() {
         // sets the colour of the circle depending on the current scale and draws it
         fill(c[i]);
         // Circle vectors get gradually smaller, creating effected of them fading out
-        let circleSize = map(i, 0, cX.length - 1, 2, radius * 0.2);
+        var circleSize = map(i, 0, cX.length - 1, 2, radius * 0.2);
         ellipse(cX[i], cY[i], circleSize);
     }
 
@@ -182,8 +170,6 @@ function draw() {
         ellipse(radius * sin(radians(angle * i)), radius * cos(radians(angle * i)), radius / 12);
     }
 
-    //resetMatrix();
-
 }
 
 function mousePressed() {
@@ -191,37 +177,50 @@ function mousePressed() {
     freqIndex = floor(random(5)); // Assigns a random note from within current scale
 
     // work out which note has been played
-    if (currentScale[freqIndex] == 233.082)
+    switch (currentScale[freqIndex]) {
+      case 233.082:
         circleNoteIndex = 0;
-    else if (currentScale[freqIndex] == 246.942)
+        break;
+      case 246.942:
         circleNoteIndex = 1;
-    else if (currentScale[freqIndex] == 261.626)
+        break;
+      case 261.626:
         circleNoteIndex = 2;
-    else if (currentScale[freqIndex] == 277.183)
+        break;
+      case 277.183:
         circleNoteIndex = 3;
-    else if (currentScale[freqIndex] == 293.665)
+        break;
+      case 293.665:
         circleNoteIndex = 4;
-    else if (currentScale[freqIndex] == 311.127)
+        break;
+      case 311.127:
         circleNoteIndex = 5;
-    else if (currentScale[freqIndex] == 329.628)
+        break;
+      case 329.628:
         circleNoteIndex = 6;
-    else if (currentScale[freqIndex] == 349.228)
+        break;
+      case 349.228:
         circleNoteIndex = 7;
-    else if (currentScale[freqIndex] == 369.994)
+        break;
+      case 369.994:
         circleNoteIndex = 8;
-    else if (currentScale[freqIndex] == 391.995)
+        break;
+      case 391.995:
         circleNoteIndex = 9;
-    else if (currentScale[freqIndex] == 415.305)
+        break;
+      case 415.305:
         circleNoteIndex = 10;
-    else if (currentScale[freqIndex] == 440.00)
+        break;
+      case 440.00:
         circleNoteIndex = 11;
-    else if (currentScale[freqIndex] == 466.164)
+        break;
+      case 466.164:
         circleNoteIndex = 12;
+        break;
+    }
 
     if (clickCounter > 0 && clickCounter % 10 === 0) {
-
         scaleStep++;
-
         if (scaleStep > 11)
             scaleStep = 0;
         for (var i = 0; i < 5; i++) {
@@ -231,20 +230,6 @@ function mousePressed() {
         if (hue >= 255)
             hue = 0;
 
-        // // Fade out current scale label
-        // let scaleListIndex = scaleStep;
-        //
-        // if(scaleListIndex === 0) scaleListIndex = 12;
-        //
-        // let currentListId = `#${scaleLabelArray[scaleListIndex - 1].id()}`;
-        // $(currentListId).fadeOut(500, () => {
-        //     // Fade in new scale label
-        //     if(scaleListIndex === 12) scaleListIndex = 0;
-        //     let newListId = `#${scaleLabelArray[scaleListIndex].id()}`;
-        //     $(newListId).fadeIn(500);
-        // });
-        //
-        // console.log(scaleLabelArray[scaleListIndex].id());
     }
 
     osc.freq(currentScale[freqIndex]);

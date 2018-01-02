@@ -5252,7 +5252,7 @@ exports.sizeOf = sizeOf;
 
     function timedOut() {
       self._timedOut = true
-      self.request.abort()      
+      self.request.abort()
     }
 
     function error(resp, msg, t) {
@@ -12961,7 +12961,7 @@ p5.Renderer2D.prototype.text = function (str, x, y, maxWidth, maxHeight) {
     // Offset to account for vertically centering multiple lines of text - no
     // need to adjust anything for vertical align top or baseline
     var offset = 0,
-      vAlign = p.textAlign().vertical;
+      vAlign = null;//p.textAlign().vertical;
     if (vAlign === constants.CENTER) {
       offset = ((cars.length - 1) * p.textLeading()) / 2;
     } else if (vAlign === constants.BOTTOM) {
@@ -13028,6 +13028,8 @@ p5.Renderer2D.prototype.textWidth = function(s) {
 };
 
 p5.Renderer2D.prototype.textAlign = function(h, v) {
+
+
 
   if (arguments.length) {
 
@@ -25552,6 +25554,7 @@ var p5 = _dereq_('../core/core');
  * </div>
  */
 p5.prototype.textAlign = function(horizAlign, vertAlign) {
+  // console.log(horizAlign);
   return this._renderer.textAlign.apply(this._renderer, arguments);
 };
 
@@ -25978,7 +25981,7 @@ p5.Font.prototype.textBounds = function(str, x, y, fontSize, options) {
   var p = (options && options.renderer && options.renderer._pInst) ||
     this.parent,
     ctx = p._renderer.drawingContext,
-    alignment = ctx.textAlign || constants.LEFT,
+    alignment = ctx.textAlign || constants.CENTER,
     baseline = ctx.textBaseline || constants.BASELINE;
   var result = this.cache[cacheKey('textBounds', str, x, y, fontSize, alignment,
     baseline)];
