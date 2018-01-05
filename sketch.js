@@ -29,45 +29,15 @@ var osc = new p5.SinOsc();
 var envelope = new p5.Env();
 var delay = new p5.Delay();
 
-var scaleFrequency = [
-    [
-        261.626, 311.127, 349.228, 391.995, 466.164
-    ],
-    [
-        261.626, 293.665, 349.228, 391.995, 466.164
-    ],
-    [
-        261.626, 293.665, 349.228, 391.995, 440.00
-    ],
-    [
-        261.626, 293.665, 329.628, 391.995, 440.00
-    ],
-    [
-        246.942, 293.665, 329.628, 391.995, 440.00
-    ],
-    [
-        246.942, 293.665, 329.628, 369.994, 440.00
-    ],
-    [
-        246.942, 277.183, 329.628, 369.994, 440.00
-    ],
-    [
-        246.942, 277.183, 329.628, 369.994, 415.305
-    ],
-    [
-        246.942, 277.183, 311.127, 369.994, 415.305
-    ],
-    [
-        233.082, 277.183, 311.127, 369.994, 415.305
-    ],
-    [
-        233.082, 277.183, 311.127, 349.228, 415.305
-    ],
-    [233.082, 261.626, 311.127, 349.228, 415.305]
-];
+var scaleFrequency;
 
+function preload() {
+  scaleFrequency = loadJSON("scaleFrequency.json");
+}
 
 function setup() {
+
+
     var canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0, 0);
     // Put canvas behind normal DOM elements
@@ -85,6 +55,8 @@ function setup() {
 
     circleNoteIndex = 2;
     scaleStep = 0;
+
+    scaleFrequency = scaleFrequency.scaleFrequencyData;
 
     for (var i = 0; i < 5; i++) {
         currentScale[i] = scaleFrequency[0][i];
